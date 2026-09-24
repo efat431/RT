@@ -2,10 +2,11 @@
 
 All necessary production files for your website and Cloudflare D1 integration have been prepared and tested.
 
-## 🗄️ Cloudflare D1 Database Configuration
+## 🗄️ Cloudflare Configuration
+- **Worker Name**: `rt` (matches Cloudflare Workers Builds CI)
 - **Database Name**: `rongdhonu-db`
 - **Database ID**: `3276795d-5593-42c0-8e14-947f3ab1172b`
-- **Worker / Pages Binding**: `DB` (accessed via `env.DB`)
+- **Binding Name**: `DB` (accessed via `env.DB`)
 
 All shared e-commerce data (Products, Categories, Orders, Stock, Sliders, and Store Settings) is managed directly through Cloudflare D1 as the single source of truth across all devices and browsers.
 
@@ -13,25 +14,34 @@ All shared e-commerce data (Products, Categories, Orders, Stock, Sliders, and St
 
 ## 🚀 How to Deploy to Cloudflare
 
-### Method 1: Deploy with Wrangler CLI (Recommended)
-```bash
-# 1. Build the production assets
-npm run build
+### Method 1: Deploy via Cloudflare Workers Builds (Automated Git CI)
+1. Commit and push this repository to your connected GitHub/GitLab repository.
+2. Cloudflare Workers Builds automatically builds (`npm run build`) and deploys the Worker named `rt`.
+3. In Cloudflare Dashboard: **Workers & Pages > Overview > rt > Settings > Bindings**:
+   - Ensure D1 Database binding is bound:
+     - Variable name: `DB`
+     - D1 Database: `rongdhonu-db` (`3276795d-5593-42c0-8e14-947f3ab1172b`)
 
-# 2. Deploy directly using the pre-configured wrangler.json
+### Method 2: Deploy with Wrangler CLI
+```bash
+# 1. Authenticate with your Cloudflare Account containing rongdhonu-db:
+npx wrangler login
+
+# 2. Verify you are authenticated to the correct Cloudflare account containing the D1 database:
+npx wrangler whoami
+npx wrangler d1 list
+
+# 3. Build & Deploy:
+npm run build
 npx wrangler deploy
 ```
 
-### Method 2: Deploy via Cloudflare Pages & Git
-1. Push this repository to your connected GitHub repository.
-2. In the Cloudflare Dashboard under **Workers & Pages > Settings > Functions > D1 Database Bindings**:
-   - Variable name: `DB`
-   - D1 Database: select your database (`rongdhonu-db` / `3276795d-5593-42c0-8e14-947f3ab1172b`).
-3. Deploy the application.
-
 ---
 
-## ⚡ Multi-Browser Synchronization
-- **Single Source of Truth**: Order mutations (`createOrder`, `updateOrderStatus`, `cancelCustomerOrder`, `deleteOrder`) execute database-first against D1.
-- **Real-Time Polling & Focus Sync**: Every tab automatically re-synchronizes when focused or periodically in the background.
-- **Stock Integrity**: Stock is automatically decremented upon order placement and restored upon order cancellation or deletion.
+## 🔍 Troubleshooting: Error 10181 ("database not found")
+If Cloudflare reports `D1 binding 'DB' references database '3276795d-5593-42c0-8e14-947f3ab1172b' which was not found [code: 10181]`:
+1. **Account Isolation**: Cloudflare D1 databases are account-scoped. If you have more than one Cloudflare account (e.g. personal vs company, or multiple email logins), the D1 database `3276795d-5593-42c0-8e14-947f3ab1172b` was created in Account A, but the Worker `rt` / CI Token is deploying to Account B.
+2. **Resolution**:
+   - Run `npx wrangler d1 list` to verify which account ID owns `rongdhonu-db`.
+   - Ensure the CI deployment API token (`CLOUDFLARE_API_TOKEN`) or Workers Builds project is created under that exact same Cloudflare account.
+   - Alternatively, add `"account_id": "<YOUR_ACCOUNT_ID>"` in `wrangler.json` to lock the deployment to the correct account.
