@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" fill="none">
+  <rect x="2" y="8" width="32" height="32" rx="8" fill="#D97706" />
+  <path d="M18 14L25 24H11L18 14Z" fill="#0A0A0B" />
+  <circle cx="18" cy="28" r="3" fill="#0A0A0B" />
+  <text x="46" y="30" font-family="'Syne', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.03em" fill="#F5F5F5">LUMINARY</text>
+</svg>

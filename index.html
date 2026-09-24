@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (function() {
+        try {
+          var win = window;
+          var nativeFetch = typeof win.fetch === 'function' ? win.fetch.bind(win) : null;
+          
+          if (typeof Window !== 'undefined' && Window.prototype) {
+            try {
+              var protoDesc = Object.getOwnPropertyDescriptor(Window.prototype, 'fetch');
+              if (protoDesc && !protoDesc.set && protoDesc.configurable) {
+                Object.defineProperty(Window.prototype, 'fetch', {
+                  get: function() { return nativeFetch; },
+                  set: function(fn) { nativeFetch = fn; },
+                  configurable: true,
+                  enumerable: true
+                });
+              }
+            } catch (err) {}
+          }
+
+          try {
+            var winDesc = Object.getOwnPropertyDescriptor(win, 'fetch');
+            if (!winDesc || (!winDesc.set && winDesc.configurable !== false)) {
+              Object.defineProperty(win, 'fetch', {
+                get: function() { return nativeFetch; },
+                set: function(fn) { nativeFetch = fn; },
+                configurable: true,
+                enumerable: true
+              });
+            }
+          } catch (err) {}
+        } catch (e) {}
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpeg" href="https://i.pinimg.com/736x/bb/fe/59/bbfe59570509bbc00e9d703fd45ada18.jpg" />
+    <title>Rongdhonu Trade | Premium Online Shopping in Bangladesh</title>
+    <meta name="description" content="Shop Men's Accessories, Gadgets & Electronics, and Gift Items at Rongdhonu Trade. Fast delivery across Bangladesh with Direct Dutch-Bangla Bank / NexusPay Transfer & Cash on Delivery." />
+    <meta property="og:title" content="Rongdhonu Trade | Premium Online Shopping in Bangladesh" />
+    <meta property="og:description" content="Shop Men's Accessories, Gadgets & Electronics, and Gift Items at Rongdhonu Trade. Fast delivery across Bangladesh with Direct Dutch-Bangla Bank / NexusPay Transfer & Cash on Delivery." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased selection:bg-rose-500 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

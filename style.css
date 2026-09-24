@@ -1,0 +1,142 @@
+/*
+Theme Name: Luminary
+Theme URI: https://example.com/luminary
+Author: WordPress Theme Studio
+Author URI: https://example.com
+Description: A modern, high-performance, accessible WordPress theme for agencies, creative studios, and editorial publications. Features full block and classic editor compatibility, customizer support, responsive layouts, zero-dependency vanilla JS, and semantic typography.
+Version: 1.0.0
+Tested up to: 6.7
+Requires at least: 6.0
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: luminary
+Tags: block-styles, custom-colors, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, full-width-template, one-column, portfolio, right-sidebar, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready
+*/
+
+/* 
+ * Primary theme styles are organized in assets/css/main.css 
+ * and enqueued via wp_enqueue_scripts() in functions.php.
+ */
+@import url('assets/css/main.css');
+
+/* WordPress Core Alignment & Layout Classes */
+.alignnone {
+  margin: 1.5rem 0;
+}
+
+.aligncenter,
+div.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  clear: both;
+}
+
+.alignright {
+  float: right;
+  margin: 0.5rem 0 1.5rem 1.5rem;
+}
+
+.alignleft {
+  float: left;
+  margin: 0.5rem 1.5rem 1.5rem 0;
+}
+
+.alignwide {
+  margin-left: -40px;
+  margin-right: -40px;
+  max-width: calc(100% + 80px);
+}
+
+.alignfull {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  max-width: 100vw;
+  width: 100vw;
+}
+
+.wp-caption {
+  margin-bottom: 1.5rem;
+  max-width: 100%;
+}
+
+.wp-caption img[class*="wp-image-"] {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wp-caption-text {
+  font-size: 0.85rem;
+  color: #8C94A0;
+  padding-top: 0.5rem;
+  text-align: center;
+}
+
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+  background-color: #D97706;
+  border-radius: 4px;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+  clip: auto !important;
+  clip-path: none;
+  color: #0A0A0B;
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  height: auto;
+  left: 5px;
+  line-height: normal;
+  padding: 12px 20px;
+  text-decoration: none;
+  top: 5px;
+  width: auto;
+  z-index: 100000;
+}
+
+.sticky {
+  position: relative;
+}
+
+.sticky::before {
+  content: 'Featured';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(217, 119, 6, 0.15);
+  color: #FBBF24;
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.gallery-item {
+  margin: 0;
+}
+
+.bypostauthor > .comment-body {
+  border-left: 3px solid #D97706;
+}
